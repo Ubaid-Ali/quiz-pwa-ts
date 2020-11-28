@@ -72,7 +72,7 @@ function App() {
         {/* START BUTTON */}
         <h1>Quiz App</h1>
         {quizEnd || userAnswers.length === TOTAL_QUESTIONS ?
-          <button onClick={startQuiz}> Start Quiz </button> :
+          <button onClick={startQuiz} className='start-btn' > Start Quiz </button> :
           null}
 
         {/* SCORE */}
@@ -95,7 +95,7 @@ function App() {
 
         {/* NEXT BUTTON */}
         {!loading && !quizEnd && userAnswers.length === num + 1 && num !== TOTAL_QUESTIONS - 1 ?
-          <button onClick={nextQuestion} >Next</button>
+          <button onClick={nextQuestion} className='next-btn' >Next</button>
           : null}
 
       </div>

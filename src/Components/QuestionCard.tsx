@@ -17,18 +17,22 @@ const QuestionCard: React.FC<Props> = ({ question, answers, callback, userAnswer
         <div>
             <p> Question {questionNum} / {totalQuestions} </p>
             <p dangerouslySetInnerHTML={{ __html: question }} />
-
-            {answers.map((answer, questionNum) => (
-                <div key={questionNum}>
+            
+            {answers.map((answer, key) => {
+                console.log(key);
+                
+                return (<div key={key} className='answers-div'>
                     <button
                         disabled={userAnswer}
                         value={answer}
                         onClick={callback}
+                        className={`answers-button ans-button${key}`}
                     >
-                        <span dangerouslySetInnerHTML={{ __html: answer}} />
+                        <span dangerouslySetInnerHTML={{ __html: answer }} />
                     </button>
-                </div>
-            ))}
+                </div>)
+            }
+            )}
 
         </div>
     )
