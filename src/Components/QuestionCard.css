@@ -1,0 +1,32 @@
+
+
+.answers-div {
+    display: grid;
+}
+
+.answers-button {
+    border-radius: 4px;
+    color: #555555;
+    border: none;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.answers-button:hover {
+    background-color: #555555;
+    color: white;
+}
+/* .correctAnswer {
+    background-color: rgb(28, 185, 28);
+    margin: 2px;
+}
+
+.wrongAnswer {
+    background-color: rgb(211, 45, 45);
+} */
