@@ -27,7 +27,7 @@ function App() {
   const startQuiz = async () => {
     setLoading(true);
     setQuizEnd(false);
-    const newQuestions = await fetchQuestions(TOTAL_QUESTIONS, Difficulty.EASY);
+    const newQuestions: [] = await fetchQuestions(TOTAL_QUESTIONS, Difficulty.EASY);
     setQuestions(newQuestions);
     setScore(0);
     setUserAnswers([]);
@@ -36,7 +36,7 @@ function App() {
   }
 
   const nextQuestion = async () => {
-    const nextQuestion = num + 1;
+    const nextQuestion: number = num + 1;
     if (nextQuestion === TOTAL_QUESTIONS) {
       setQuizEnd(true);
     }
@@ -47,21 +47,21 @@ function App() {
 
   const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!quizEnd) {
-      const answer = e.currentTarget.value;
-      const correct = questions[num].correct_answer === answer;
+      const answer: string = e.currentTarget.value;
+      const correct: boolean = questions[num].correct_answer === answer;
 
       if (correct) {
-        setScore((previous_score) => previous_score + 1)
+        setScore((previous_score: number) => previous_score + 1)
       }
 
-      const answerObject = {
+      const currentAns: AnswerObject = {
         question: questions[num].question,
         answer: answer,
         correct: correct,
         correctAnswer: questions[num].correct_answer
       }
 
-      setUserAnswers((prev) => [...prev, answerObject])
+      setUserAnswers((prev) => [...prev, currentAns])
     }
   }
 
@@ -81,7 +81,7 @@ function App() {
         {/* LOADING */}
         {loading ? <p>Loading...</p> : null}
 
-        {/* QUESTIONS ANSWERS*/}
+        {/* DISPLAY QUESTIONS*/}
         {!loading && !quizEnd ?
           <QuestionCard
             questionNum={num + 1}
