@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Difficulty, fetchQuestions, QuestionState } from './Api/Api';
 import QuestionCard from './Components/QuestionCard';
-import Starter from './Components/Starter'
 import './App.css';
 
 
@@ -17,9 +16,6 @@ type AnswerObject = {
 
 function App() {
 
-
-  const [inputs, setInputs] = useState({ amount: 0, difficulty: '' });
-
   const [loading, setLoading] = useState<boolean>(false);
   const [questions, setQuestions] = useState<QuestionState[]>([]);
   const [num, setNum] = useState(0);
@@ -27,12 +23,7 @@ function App() {
   const [score, setScore] = useState<number>(0);
   const [quizEnd, setQuizEnd] = useState<boolean>(true);
 
-  function inputCallback(inputs: any) {
-    console.log(inputs)
-  }
-
   const startQuiz = async () => {
-    inputCallback({})
     setLoading(true);
     setQuizEnd(false);
     const newQuestions: [] = await fetchQuestions(TOTAL_QUESTIONS, Difficulty.EASY);
@@ -46,11 +37,8 @@ function App() {
   const nextQuestion = async () => {
     const nextQuestion: number = num + 1;
     if (nextQuestion === TOTAL_QUESTIONS) {
-      setQuizEnd(true);
-    }
-    else {
-      setNum(nextQuestion);
-    }
+      setQuizEnd(true);}
+    else {setNum(nextQuestion);}
   }
 
   const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -58,9 +46,7 @@ function App() {
       const answer: string = e.currentTarget.value;
       const correct: boolean = questions[num].correct_answer === answer;
 
-      if (correct) {
-        setScore((previous_score: number) => previous_score + 1)
-      }
+      if (correct) { setScore((previous_score: number) => previous_score + 1)};
 
       const currentAns: AnswerObject = {
         question: questions[num].question,
@@ -68,7 +54,6 @@ function App() {
         correct: correct,
         correctAnswer: questions[num].correct_answer
       }
-
       setUserAnswers((prev) => [...prev, currentAns])
     }
   }
@@ -80,10 +65,7 @@ function App() {
         {/* START BUTTON */}
         <h1>Quiz App</h1>
         {quizEnd || userAnswers.length === TOTAL_QUESTIONS ?
-          <>
-            <Starter inputCallback={inputCallback} />
             <button onClick={startQuiz} className='start-btn'> Start Quiz </button>
-          </>
         :null}
 
         {/* SCORE */}
@@ -102,12 +84,12 @@ function App() {
             userAnswer={userAnswers ? userAnswers[num] : undefined}
             callback={checkAnswer}
           /> :
-          null}
+        null}
 
         {/* NEXT BUTTON */}
         {!loading && !quizEnd && userAnswers.length === num + 1 && num !== TOTAL_QUESTIONS - 1 ?
           <button onClick={nextQuestion} className='next-btn' >Next</button>
-          : null}
+        : null}
 
       </div>
     </div>
