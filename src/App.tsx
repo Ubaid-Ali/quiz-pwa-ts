@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Difficulty, fetchQuestions, QuestionState } from './Api/Api';
 import QuestionCard from './Components/QuestionCard';
+import Starter from './Components/Starter'
 import './App.css';
 
 
 const TOTAL_QUESTIONS = 10;
-
 
 type AnswerObject = {
   question: string;
@@ -14,8 +14,11 @@ type AnswerObject = {
   correctAnswer: string;
 }
 
+
 function App() {
 
+
+  const [inputs, setInputs] = useState({ amount: 0, difficulty: '' });
 
   const [loading, setLoading] = useState<boolean>(false);
   const [questions, setQuestions] = useState<QuestionState[]>([]);
@@ -24,7 +27,12 @@ function App() {
   const [score, setScore] = useState<number>(0);
   const [quizEnd, setQuizEnd] = useState<boolean>(true);
 
+  function inputCallback(inputs: any) {
+    console.log(inputs)
+  }
+
   const startQuiz = async () => {
+    inputCallback({})
     setLoading(true);
     setQuizEnd(false);
     const newQuestions: [] = await fetchQuestions(TOTAL_QUESTIONS, Difficulty.EASY);
@@ -72,8 +80,11 @@ function App() {
         {/* START BUTTON */}
         <h1>Quiz App</h1>
         {quizEnd || userAnswers.length === TOTAL_QUESTIONS ?
-          <button onClick={startQuiz} className='start-btn' > Start Quiz </button> :
-          null}
+          <>
+            <Starter inputCallback={inputCallback} />
+            <button onClick={startQuiz} className='start-btn'> Start Quiz </button>
+          </>
+        :null}
 
         {/* SCORE */}
         {!quizEnd ? (<p>Score: {score} </p>) : null}
