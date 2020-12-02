@@ -13,8 +13,20 @@ type AnswerObject = {
   correctAnswer: string;
 }
 
+type click = { id: string,
+  color: string,
+  clicked: boolean
+}
+
 
 function App() {
+
+
+  let [userClick, setUserClick] = useState<click>({
+    id: '',
+    color: '',
+    clicked: false
+  })
 
   const [loading, setLoading] = useState<boolean>(false);
   const [questions, setQuestions] = useState<QuestionState[]>([]);
@@ -31,22 +43,34 @@ function App() {
     setScore(0);
     setUserAnswers([]);
     setNum(0);
+    setUserClick({ color: 'normal', id: '', clicked: false })
     setLoading(false);
   }
 
   const nextQuestion = async () => {
     const nextQuestion: number = num + 1;
     if (nextQuestion === TOTAL_QUESTIONS) {
-      setQuizEnd(true);}
-    else {setNum(nextQuestion);}
+      setQuizEnd(true);
+    }
+    else { setNum(nextQuestion); }
+    setUserClick({ color: '', id: '', clicked: false })
   }
 
   const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
+
     if (!quizEnd) {
       const answer: string = e.currentTarget.value;
       const correct: boolean = questions[num].correct_answer === answer;
 
-      if (correct) { setScore((previous_score: number) => previous_score + 1)};
+      if (correct) {
+        setScore((previous_score: number) => previous_score + 1)
+      // color green
+        setUserClick({color: 'rgb(38, 255, 38)' ,id: e.currentTarget.id, clicked: true})
+      }
+      else {
+      // color red
+        setUserClick({color: 'rgb(255, 53, 53)' ,id: e.currentTarget.id, clicked: true})
+       }
 
       const currentAns: AnswerObject = {
         question: questions[num].question,
@@ -58,6 +82,8 @@ function App() {
     }
   }
 
+
+
   return (
     <div className="App">
       <div className="App-header">
@@ -65,8 +91,8 @@ function App() {
         {/* START BUTTON */}
         <h1>Quiz App</h1>
         {quizEnd || userAnswers.length === TOTAL_QUESTIONS ?
-            <button onClick={startQuiz} className='start-btn'> Start Quiz </button>
-        :null}
+          <button onClick={startQuiz} className='start-btn'> Start Quiz </button>
+          : null}
 
         {/* SCORE */}
         {!quizEnd ? (<p>Score: {score} </p>) : null}
@@ -83,13 +109,14 @@ function App() {
             answers={questions[num].answers}
             userAnswer={userAnswers ? userAnswers[num] : undefined}
             callback={checkAnswer}
+            userClick={userClick}
           /> :
-        null}
+          null}
 
         {/* NEXT BUTTON */}
         {!loading && !quizEnd && userAnswers.length === num + 1 && num !== TOTAL_QUESTIONS - 1 ?
           <button onClick={nextQuestion} className='next-btn' >Next</button>
-        : null}
+          : null}
 
       </div>
     </div>
