@@ -23,16 +23,12 @@ const QuestionCard: React.FC<Props> = ({ question, answers, callback, userAnswer
 
     if (userClick.clicked) {
         AnsStyle[Number(userClick.id)].backgroundColor = userClick.color
-        // console.log('clicked', userClick.clicked);
         
     }else {
         AnsStyle[Number(userClick.id)].backgroundColor = ''
-        // console.log('clicked', userClick.clicked);
     }
 
-    console.log(userClick);
-    
-
+    // console.log(userClick);
     return (
         <div>
             <p> Question {questionNum} / {totalQuestions} </p>
