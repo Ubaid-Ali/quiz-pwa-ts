@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+### Quiz App with React typescript, (PWA) Progressive Web App
+#### Deployed
+[Here](https://typescript-quiz-pwa.netlify.app/)
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
