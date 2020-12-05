@@ -3,6 +3,7 @@ import { Difficulty, fetchQuestions, QuestionState } from './Api/Api';
 import QuestionCard from './Components/QuestionCard';
 import './App.css';
 
+import Token from './Firebase-folder/Token'
 
 const TOTAL_QUESTIONS = 10;
 
@@ -13,13 +14,16 @@ type AnswerObject = {
   correctAnswer: string;
 }
 
-type click = { id: string,
+type click = {
+  id: string,
   color: string,
   clicked: boolean
 }
 
 
 function App() {
+
+    Token();
 
 
   let [userClick, setUserClick] = useState<click>({
@@ -64,13 +68,13 @@ function App() {
 
       if (correct) {
         setScore((previous_score: number) => previous_score + 1)
-      // color green
-        setUserClick({color: 'rgb(38, 255, 38)' ,id: e.currentTarget.id, clicked: true})
+        // color green
+        setUserClick({ color: 'rgb(38, 255, 38)', id: e.currentTarget.id, clicked: true })
       }
       else {
-      // color red
-        setUserClick({color: 'rgb(255, 53, 53)' ,id: e.currentTarget.id, clicked: true})
-       }
+        // color red
+        setUserClick({ color: 'rgb(255, 53, 53)', id: e.currentTarget.id, clicked: true })
+      }
 
       const currentAns: AnswerObject = {
         question: questions[num].question,
@@ -85,11 +89,11 @@ function App() {
 
 
   return (
-    <div className="App">
-      <div className="App-header">
+    <div className="App" >
+      <div className="App-header" onLoad={Token}>
 
         {/* START BUTTON */}
-        <h1>Quiz App</h1>
+        <h1 >Quiz App</h1>
         {quizEnd || userAnswers.length === TOTAL_QUESTIONS ?
           <button onClick={startQuiz} className='start-btn'> Start Quiz </button>
           : null}
