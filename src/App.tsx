@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Difficulty, fetchQuestions, QuestionState } from './Api/Api';
 import QuestionCard from './Components/QuestionCard';
 import './App.css';
@@ -23,8 +23,8 @@ type click = {
 
 function App() {
 
-    Token();
-
+  // FIREBASE TOKEN
+  useEffect(() => Token(), []);
 
   let [userClick, setUserClick] = useState<click>({
     id: '',
